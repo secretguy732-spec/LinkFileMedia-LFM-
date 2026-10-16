@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob: https:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer"><title>LinkFileMedia (LFM)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+<style>
+:root{--bg:#eceaff;--sf:#f7f5ff;--fg:#1d1b20;--pr:#6750a4;--pc:#e6dcff;--on:#21005d;--er:#b3261e;--ec:#ffdad6;--cl:9px 9px 22px rgba(103,80,164,.2),-7px -7px 18px rgba(255,255,255,.95),inset -4px -4px 9px rgba(103,80,164,.08),inset 4px 4px 9px rgba(255,255,255,.85);--cs:5px 5px 12px rgba(103,80,164,.22),-4px -4px 10px rgba(255,255,255,.9),inset -2px -2px 5px rgba(0,0,0,.07),inset 2px 2px 5px rgba(255,255,255,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17151f;--sf:#26232f;--fg:#e6e0e9;--pr:#cfbcff;--pc:#4a4458;--on:#e9ddff;--er:#ffb4ab;--ec:#5c2b28;--cl:9px 9px 22px rgba(0,0,0,.55),-6px -6px 16px rgba(255,255,255,.04),inset -4px -4px 9px rgba(0,0,0,.25),inset 4px 4px 9px rgba(255,255,255,.05);--cs:5px 5px 12px rgba(0,0,0,.5),-3px -3px 9px rgba(255,255,255,.05),inset -2px -2px 5px rgba(0,0,0,.2),inset 2px 2px 5px rgba(255,255,255,.12)}}
+:root[data-theme="dark"]{--bg:#17151f;--sf:#26232f;--fg:#e6e0e9;--pr:#cfbcff;--pc:#4a4458;--on:#e9ddff;--er:#ffb4ab;--ec:#5c2b28;--cl:9px 9px 22px rgba(0,0,0,.55),-6px -6px 16px rgba(255,255,255,.04),inset -4px -4px 9px rgba(0,0,0,.25),inset 4px 4px 9px rgba(255,255,255,.05);--cs:5px 5px 12px rgba(0,0,0,.5),-3px -3px 9px rgba(255,255,255,.05),inset -2px -2px 5px rgba(0,0,0,.2),inset 2px 2px 5px rgba(255,255,255,.12)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.5 Roboto,system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:860px;margin:0 auto;padding:14px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:20px;background:var(--sf);border-radius:32px;padding:10px 14px;box-shadow:var(--cl)}
+.logo{display:flex;align-items:center;gap:10px;font:700 20px Roboto,system-ui,sans-serif;color:inherit;text-decoration:none}
+.logo svg{width:42px;height:42px;border-radius:14px;box-shadow:var(--cs)}
+.card{background:var(--sf);border-radius:32px;padding:20px;margin-bottom:20px;box-shadow:var(--cl)}
+h1{font-size:clamp(32px,9vw,54px);line-height:1.05;margin:0 0 12px;font-weight:800;letter-spacing:-1.5px}
+h1 span{background:var(--pr);color:var(--bg);padding:0 12px;border-radius:20px;display:inline-block;box-shadow:var(--cs)}
+h2{margin:0 0 10px;font-size:20px;font-weight:600}
+.b{display:inline-flex;align-items:center;gap:6px;font:500 14px Roboto,system-ui,sans-serif;letter-spacing:.3px;background:var(--pr);color:var(--bg);border:0;border-radius:99px;padding:12px 22px;cursor:pointer;text-decoration:none;box-shadow:var(--cs);transition:transform .12s,filter .15s;position:relative;overflow:hidden}
+.b:hover{filter:brightness(1.08)}.b:active{transform:scale(.95)}
+.b.t{background:var(--pc);color:var(--on)}.b.d{background:var(--ec);color:var(--er)}.b.s{padding:7px 14px;font-size:12px}.b[disabled]{opacity:.4;pointer-events:none}
+.b i.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:rp .55s ease-out;pointer-events:none}@keyframes rp{to{transform:scale(3);opacity:0}}
+label{font-size:12px;font-weight:500;color:var(--pr);display:block;margin-left:14px}
+input[type=text],input[type=password],input[type=number],select{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:0;border-bottom:2px solid var(--pr);border-radius:18px 18px 8px 8px;padding:12px 14px;margin:3px 0 12px;box-shadow:inset 3px 3px 7px rgba(103,80,164,.14),inset -3px -3px 7px rgba(255,255,255,.7)}
+input:focus,select:focus{outline:none;border-bottom-width:3px}
+input[type=file]{max-width:100%;margin-bottom:12px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.g .card{margin:0}
+.tag{display:inline-block;background:var(--pc);color:var(--on);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:500;margin:0 4px 4px 0;box-shadow:var(--cs)}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--bg);border-radius:24px;padding:14px;margin-bottom:12px;box-shadow:inset 4px 4px 9px rgba(103,80,164,.12),inset -4px -4px 9px rgba(255,255,255,.7)}
+.row .n{flex:1 1 170px;word-break:break-all;font-weight:500}.m{font-size:12px;opacity:.7}
+.ad{border-radius:28px;padding:20px;margin:12px 0;color:#2a1a45;box-shadow:var(--cl);display:block;text-decoration:none;position:relative}
+.ad small{position:absolute;top:10px;right:16px;font-size:10px;letter-spacing:1px;opacity:.6}.ad b{font-size:18px;display:block}.ad span.cta{display:inline-block;margin-top:10px;background:#2a1a45;color:#fff;border-radius:99px;padding:7px 16px;font-size:12px}
+.bar{height:12px;border-radius:99px;background:var(--bg);box-shadow:inset 2px 2px 5px rgba(103,80,164,.2);overflow:hidden}.bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--pr);transition:width 1s linear}
+.dots{display:flex;gap:8px;margin-bottom:12px}.dot{width:34px;height:10px;border-radius:99px;background:var(--bg);box-shadow:inset 2px 2px 4px rgba(103,80,164,.2)}.dot.on{background:var(--pr)}
+.chk{display:flex;align-items:center;gap:10px;margin:14px 0 0;font-size:15px;color:var(--fg)}.chk input{width:22px;height:22px;accent-color:var(--pr)}
+.tabs{display:flex;gap:10px;margin-bottom:14px}
+#t{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);border-radius:16px;padding:12px 20px;display:none;z-index:9;max-width:90%;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+</style></head><body><div class="w"><nav id="nav"></nav><main id="app"></main><p class="m" style="text-align:center">© LFM — LinkFileMedia</p></div><div id="t"></div>
+<script>
+// === Konfigurasi iklan: ganti title/desc/link dengan banner atau link afiliasi kamu ===
+const AD_SLOTS=[{t:'Bebas Iklan Selamanya',d:'Upgrade ke LFM Premium dan lompati semua halaman iklan.',c:'#ffc6e0,#d6c6ff',b:'Coba Premium',u:'#/auth'},{t:'Pasang Iklanmu Di Sini',d:'Slot sponsor — edit AD_SLOTS di kode untuk isi banner/link kamu.',c:'#bff3e6,#c1dcff',b:'Pasang Iklan',u:'#/'},{t:'File Lebih Aman',d:'Beri password: file dienkripsi AES-256 sebelum disimpan.',c:'#ffe7b0,#ffc4b0',b:'Pelajari',u:'#/auth'}];
+const AD_STEPS=3,AD_SECS=7;
+const $=s=>document.querySelector(s),app=$('#app'),MAX=100*1024*1024,enc=new TextEncoder();
+const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast('Penyimpanan penuh/diblokir')}}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rnd=n=>[...crypto.getRandomValues(new Uint8Array(n))].map(b=>'abcdefghijkmnpqrstuvwxyz23456789'[b%32]).join('');
+const b2h=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const fmt=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const db=new Promise((res,rej)=>{const r=indexedDB.open('lfm',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const idb=async(m,fn)=>{const d=await db;return new Promise((res,rej)=>{const t=d.transaction('f',m);const q=fn(t.objectStore('f'));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)})};
+const toast=m=>{const t=$('#t');t.textContent=m;t.style.display='block';clearTimeout(toast.i);toast.i=setTimeout(()=>t.style.display='none',2600)};
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('.b');if(!b)return;const r=b.getBoundingClientRect(),i=document.createElement('i'),z=Math.max(r.width,r.height);i.className='rp';i.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-r.left-z/2}px;top:${e.clientY-r.top-z/2}px`;b.appendChild(i);setTimeout(()=>i.remove(),600)});
+// === Kripto: PBKDF2 (hash akun & kunci file) + AES-256-GCM ===
+const pbk=async(pw,salt,use)=>crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,[use]);
+const hashPw=async(p,salt)=>b2h(await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:210000,hash:'SHA-256'},await pbk(p,0,'deriveBits'),256));
+const fileKey=async(p,salt)=>crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},await pbk(p,0,'deriveKey'),{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+const blobOf=async(l,i,key)=>{const b=await idb('readonly',s=>s.get(l.id+'_'+i));if(!b)throw 0;if(!key)return b;const a=new Uint8Array(await b.arrayBuffer());return new Blob([await crypto.subtle.decrypt({name:'AES-GCM',iv:a.slice(0,12)},key,a.slice(12))],{type:l.files[i].type})};
+// === ZIP (tanpa kompresi) ===
+const crcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=u=>{let c=-1;for(let i=0;i<u.length;i++)c=crcT[(c^u[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zip(fs){const P=[],C=[];let off=0,cs=0;for(const f of fs){const nm=enc.encode(f.name),c=crc(f.data),n=f.data.length,h=new DataView(new ArrayBuffer(30));
+h.setUint32(0,0x04034b50,1);h.setUint16(4,20,1);h.setUint16(6,0x800,1);h.setUint16(12,0x21,1);h.setUint32(14,c,1);h.setUint32(18,n,1);h.setUint32(22,n,1);h.setUint16(26,nm.length,1);P.push(h.buffer,nm,f.data);
+const d=new DataView(new ArrayBuffer(46));d.setUint32(0,0x02014b50,1);d.setUint16(4,20,1);d.setUint16(6,20,1);d.setUint16(8,0x800,1);d.setUint16(14,0x21,1);d.setUint32(16,c,1);d.setUint32(20,n,1);d.setUint32(24,n,1);d.setUint16(28,nm.length,1);d.setUint32(42,off,1);C.push(d.buffer,nm);off+=30+nm.length+n;cs+=46+nm.length}
+const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,1);e.setUint16(8,fs.length,1);e.setUint16(10,fs.length,1);e.setUint32(12,cs,1);e.setUint32(16,off,1);return new Blob([...P,...C,e.buffer],{type:'application/zip'})}
+const save=(b,n)=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),9e3)};
+// === App ===
+const me=()=>{const s=LS.get('lfm_ses',null),u=LS.get('lfm_users',{});return s&&u[s]?{name:s,...u[s]}:null};
+const LOGO=`<svg viewBox="0 0 44 44"><rect width="44" height="44" fill="#6750a4"/><path d="M12 22a5 5 0 0 1 0-7l4-4a5 5 0 0 1 7 0M32 18a5 5 0 0 1 0 7l-4 4a5 5 0 0 1-7 0M17 25l10-10" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><text x="22" y="41" font-size="8.5" font-family="Roboto,Arial" font-weight="900" text-anchor="middle" fill="#ffc6e0">LFM</text></svg>`;
+function nav(){const u=me();$('#nav').innerHTML=`<a class="logo" href="#/">${LOGO}<span>LinkFileMedia</span></a><div>${u?`<a class="b t s" href="#/dash">Dashboard</a> <button class="b d s" onclick="out()">Keluar</button>`:`<a class="b s" href="#/auth">Masuk / Daftar</a>`}</div>`}
+function out(){LS.set('lfm_ses',null);location.hash='#/';route()}
+function home(){app.innerHTML=`<div class="card"><h1>Banyak file,<br><span>1 link</span> aman.</h1><p>Upload beberapa file sekaligus, unduh jadi satu ZIP. Kunci dengan password (enkripsi AES-256), atur kedaluwarsa, dan lompati iklan dengan Premium.</p><a class="b" href="#/${me()?'dash':'auth'}">Mulai Upload</a></div>
+<div class="g"><div class="card"><h2>🔐 Super Aman</h2>Enkripsi AES-256-GCM, hash PBKDF2, ID link 16 karakter acak, batas percobaan password.</div><div class="card"><h2>📦 Multi-file</h2>Satu link bisa berisi banyak file. Download semua jadi ZIP atau satu per satu.</div><div class="card"><h2>📺 Iklan Bertahap</h2>3 langkah ala shortlink dengan timer dan verifikasi. Premium langsung bypass.</div></div>`}
+function auth(mode){mode=mode||'login';app.innerHTML=`<div class="card"><div class="tabs"><button class="b s ${mode=='login'?'':'t'}" onclick="auth('login')">Masuk</button><button class="b s ${mode=='reg'?'':'t'}" onclick="auth('reg')">Daftar</button></div><h2>${mode=='login'?'Masuk':'Buat Akun'}</h2><label>Username</label><input type="text" id="u" autocomplete="username" maxlength="20"><label>Password</label><input type="password" id="p" autocomplete="${mode=='login'?'current-password':'new-password'}"><button class="b" onclick="doAuth('${mode}')">${mode=='login'?'Masuk':'Daftar'}</button></div>`}
+async function doAuth(mode){const n=$('#u').value.trim().toLowerCase(),p=$('#p').value,U=LS.get('lfm_users',{}),F=LS.get('lfm_fail',{n:0,t:0});
+if(F.n>=5&&Date.now()-F.t<60000)return toast('Terlalu banyak percobaan. Tunggu 1 menit');if(F.n>=5)F.n=0;
+if(!/^[a-z0-9_]{3,20}$/.test(n))return toast('Username 3-20 huruf/angka/_');if(p.length<8)return toast('Password minimal 8 karakter');
+if(mode=='reg'){if(U[n])return toast('Username sudah dipakai');const salt=rnd(16);U[n]={salt,hash:await hashPw(p,salt),premium:false};LS.set('lfm_users',U)}
+else{if(!U[n]||U[n].hash!==await hashPw(p,U[n].salt)){F.n++;F.t=Date.now();LS.set('lfm_fail',F);return toast('Username/password salah')}}
+LS.set('lfm_fail',{n:0,t:0});LS.set('lfm_ses',n);location.hash='#/dash';route()}
+function dash(){const u=me(),L=Object.values(LS.get('lfm_links',{})).filter(l=>l.owner==u.name).sort((a,b)=>b.date-a.date);
+app.innerHTML=`<div class="card"><h2>Halo, ${esc(u.name)} ${u.premium?'<span class="tag">PREMIUM</span>':''}</h2>${u.premium?'Iklan otomatis di-bypass saat kamu membuka link.':'Premium = lewati semua langkah iklan.'}<br><br><button class="b t s" onclick="prem()">${u.premium?'Matikan Premium (demo)':'Aktifkan Premium (demo)'}</button></div>
+<div class="card"><h2>Upload (bisa banyak file)</h2><input type="file" id="fi" multiple><label>Judul paket (opsional)</label><input type="text" id="ti" maxlength="60" placeholder="mis. Tugas Kelas"><label>Password (opsional, mengenkripsi file)</label><input type="password" id="pw" autocomplete="new-password" placeholder="kosong = tanpa password"><label>Kedaluwarsa</label><select id="ex"><option value="0">Tidak pernah</option><option value="1">1 jam</option><option value="24">1 hari</option><option value="168">7 hari</option><option value="720">30 hari</option></select><label>Batas unduhan (0 = tanpa batas)</label><input type="number" id="md" min="0" value="0"><label class="chk"><input type="checkbox" id="ads" checked> Tampilkan iklan sebelum download</label><br><button class="b" id="ub" onclick="up()">Upload & Buat Link</button> <span class="m">maks ${fmt(MAX)}/file</span></div>
+<div class="card"><h2>Paket Saya (${L.length})</h2>${L.length?L.map(l=>`<div class="row"><div class="n">${esc(l.title)}<div class="m">${l.files.length} file • ${fmt(l.files.reduce((a,f)=>a+f.size,0))} • ${l.dl} unduhan</div><div>${l.enc?'<span class="tag">🔒 AES-256</span>':''}${l.ads?'<span class="tag">📺 Iklan</span>':''}${l.exp?'<span class="tag">⏳ '+new Date(l.exp).toLocaleDateString()+'</span>':''}${l.maxdl?'<span class="tag">Maks '+l.maxdl+'x</span>':''}</div></div><div><button class="b t s" onclick="cp('${l.id}')">Salin</button> <button class="b d s" onclick="del('${l.id}')">Hapus</button></div></div>`).join(''):'<span class="m">Belum ada paket.</span>'}</div>`}
+async function prem(){const U=LS.get('lfm_users',{}),s=LS.get('lfm_ses',null);U[s].premium=!U[s].premium;LS.set('lfm_users',U);dash()}
+async function up(){const fs=[...$('#fi').files];if(!fs.length)return toast('Pilih file dulu');if(fs.some(f=>f.size>MAX))return toast('Maks '+fmt(MAX)+' per file');
+const pw=$('#pw').value;if(pw&&pw.length<6)return toast('Password link minimal 6 karakter');
+const u=me(),id=rnd(16),salt=crypto.getRandomValues(new Uint8Array(16)),key=pw?await fileKey(pw,salt):null,files=[];$('#ub').disabled=true;toast('Memproses…');
+try{for(let i=0;i<fs.length;i++){const f=fs[i];let b=f;if(key){const iv=crypto.getRandomValues(new Uint8Array(12));b=new Blob([iv,await crypto.subtle.encrypt({name:'AES-GCM',iv},key,await f.arrayBuffer())])}await idb('readwrite',s=>s.put(b,id+'_'+i));files.push({name:f.name,size:f.size,type:f.type})}}
+catch(e){for(let i=0;i<fs.length;i++)idb('readwrite',s=>s.delete(id+'_'+i));$('#ub').disabled=false;return toast('Gagal menyimpan (penyimpanan penuh?)')}
+const ex=+$('#ex').value,L=LS.get('lfm_links',{});L[id]={id,owner:u.name,title:$('#ti').value.trim()||(fs.length>1?fs.length+' file':fs[0].name),files,enc:!!key,salt:[...salt],ads:$('#ads').checked,dl:0,date:Date.now(),exp:ex?Date.now()+ex*36e5:0,maxdl:Math.max(0,+$('#md').value||0)};LS.set('lfm_links',L);toast('Link dibuat');dash()}
+function cp(id){const url=location.href.split('#')[0]+'#/d/'+id;(navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast('Link disalin')).catch(()=>prompt('Salin link:',url))}
+async function del(id){if(!confirm('Hapus paket ini?'))return;const L=LS.get('lfm_links',{}),l=L[id];delete L[id];LS.set('lfm_links',L);for(let i=0;i<l.files.length;i++)await idb('readwrite',s=>s.delete(id+'_'+i));dash()}
+let tm;
+function dl(id){clearInterval(tm);const L=LS.get('lfm_links',{}),l=L[id],u=me();
+const msg=(h,t)=>app.innerHTML=`<div class="card"><h2>${h}</h2>${t}<br><br><a class="b" href="#/">Beranda</a></div>`;
+if(!l)return msg('❌ Link tidak ditemukan','File dihapus atau link salah.');
+if((l.exp&&Date.now()>l.exp)||(l.maxdl&&l.dl>=l.maxdl))return msg('⌛ Link tidak berlaku lagi','Sudah kedaluwarsa atau batas unduhan tercapai.');
+const tot=l.files.reduce((a,f)=>a+f.size,0),info=`<h2>📦 ${esc(l.title)}</h2><span class="tag">${l.files.length} file</span><span class="tag">${fmt(tot)}</span>${l.enc?'<span class="tag">🔒 Terenkripsi</span>':''}`;let key=null,fails=0;
+const pwStage=()=>{app.innerHTML=`<div class="card">${info}<br><br><label>Password</label><input type="password" id="lp" autocomplete="off"><button class="b" id="lb">Buka</button></div>`;$('#lb').onclick=async()=>{$('#lb').disabled=true;try{const k=await fileKey($('#lp').value,new Uint8Array(l.salt));await blobOf(l,0,k);key=k;stage()}catch(e){fails++;await wait(Math.min(8000,500*2**fails));toast('Password salah');$('#lb').disabled=false}}};
+const stage=()=>{if(l.ads&&!(u&&u.premium))ad(1);else ready()};
+const card=a=>`<a class="ad" style="background:linear-gradient(135deg,${a.c.split(',')[0]},${a.c.split(',')[1]})" href="${esc(a.u)}" ${a.u[0]=='#'?'':'target="_blank" rel="noopener noreferrer sponsored"'}><small>SPONSORED</small><b>${esc(a.t)}</b>${esc(a.d)}<br><span class="cta">${esc(a.b)} →</span></a>`;
+const ad=n=>{let s=AD_SECS;app.innerHTML=`<div class="card">${info}<br><br><div class="dots">${[1,2,3].slice(0,AD_STEPS).map(i=>`<span class="dot ${i<=n?'on':''}"></span>`).join('')}</div><h2>Langkah ${n} dari ${AD_STEPS}</h2>${card(AD_SLOTS[(n-1)%AD_SLOTS.length])}${card(AD_SLOTS[n%AD_SLOTS.length])}<div class="bar"><i id="pb"></i></div><p class="m" id="ct"></p><label class="chk"><input type="checkbox" id="rb" disabled> Saya bukan robot</label><br><button class="b" id="gb" disabled>${n<AD_STEPS?'Lanjut':'Ke file'}</button></div>`;
+$('#rb').onchange=e=>$('#gb').disabled=!e.target.checked;$('#gb').onclick=()=>n<AD_STEPS?ad(n+1):ready();
+const tick=()=>{if(!$('#pb'))return clearInterval(tm);if(document.hidden){$('#ct').textContent='Timer berhenti saat tab ditinggal';return}$('#pb').style.width=((AD_SECS-s)/AD_SECS*100)+'%';if(s<=0){clearInterval(tm);$('#ct').textContent='Centang verifikasi lalu lanjut';$('#rb').disabled=false;return}$('#ct').textContent='Tunggu '+s+' detik…';s--};tick();tm=setInterval(tick,1000)};
+const bump=()=>{const A=LS.get('lfm_links',{});if(A[id]){A[id].dl++;LS.set('lfm_links',A)}};
+const ready=()=>{app.innerHTML=`<div class="card">${info}${u&&u.premium&&l.ads?'<p><span class="tag">Premium</span> iklan di-bypass ⚡</p>':''}<br>${l.files.length>1?'<button class="b" id="da">⬇ Download semua (ZIP)</button>':''}<br><br>${l.files.map((f,i)=>`<div class="row"><div class="n">${esc(f.name)}<div class="m">${fmt(f.size)}</div></div><button class="b t s" data-i="${i}">⬇ Unduh</button></div>`).join('')}</div>`;
+app.querySelectorAll('[data-i]').forEach(b=>b.onclick=async()=>{try{const i=+b.dataset.i;save(await blobOf(l,i,key),l.files[i].name);bump();toast('Mengunduh…')}catch(e){toast('Gagal membuka file (hanya ada di browser pemilik)')}});
+if($('#da'))$('#da').onclick=async()=>{try{toast('Menyiapkan ZIP…');const seen={},fs=[];for(let i=0;i<l.files.length;i++){let n=l.files[i].name.replace(/[\\\/]/g,'_');if(seen[n])n=seen[n]+++'_'+n;else seen[n]=1;fs.push({name:n,data:new Uint8Array(await (await blobOf(l,i,key)).arrayBuffer())})}save(zip(fs),(l.title.replace(/[^\w\- ]/g,'')||'lfm')+'.zip');bump();toast('ZIP siap')}catch(e){toast('Gagal membuat ZIP')}}};
+l.enc?pwStage():stage()}
+function route(){clearInterval(tm);nav();const h=location.hash.slice(1)||'/',m=h.match(/^\/d\/([a-z0-9]+)/);if(m)return dl(m[1]);if(h=='/auth')return auth();if(h=='/dash')return me()?dash():(location.hash='#/auth');home()}
+addEventListener('hashchange',route);route();
+</script></body></html>
